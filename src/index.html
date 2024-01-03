@@ -8,13 +8,12 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css" />
   </head>
   <body class="page">
     <div class="page__content">
       <header class="header page__section">
         <img
-          src="./images/logo.svg"
+          src="<%=require('./images/logo.svg')%>"
           alt="Логотип проекта масто"
           class="logo header__logo"
         />
@@ -37,7 +36,7 @@
         </section>
       </main>
       <footer class="footer page__section">
-        <p class="footer__copyright">© 2023 Mesto Russia</p>
+        <p class="footer__copyright">© 2024 Mesto Russia</p>
       </footer>
       <div class="popup popup_type_edit">
         <div class="popup__content">
@@ -107,7 +106,5 @@
         </div>
       </li>
     </template>
-    <script src="./scripts/cards.js"></script>
-    <script src="./scripts/index.js" defer></script>
   </body>
 </html>
