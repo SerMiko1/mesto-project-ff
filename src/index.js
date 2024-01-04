@@ -1,4 +1,5 @@
-import { initialCards, createCard, cardLike, deleteCard } from "./scripts/cards";
+import { initialCards } from "./scripts/cards";
+import { createCard, deleteCard, likeCard } from "./scripts/card";
 import "./pages/index.css";
 import { openModal, closeModal } from "./scripts/modal";
 
@@ -25,7 +26,7 @@ const popupImage = popupImageContainer.querySelector(".popup__image");
 const popupCaption = popupImageContainer.querySelector(".popup__caption");
 
 initialCards.forEach((cardItem) =>
-  placesList.append(createCard(cardItem, handleImageClick, cardLike, deleteCard))
+  placesList.append(createCard(cardItem, handleImageClick, likeCard, deleteCard))
 );
 
 function handleProfileFormSubmit(evt) {
@@ -40,7 +41,7 @@ function handleNewCardFormSubmit(evt) {
   const newCard = createCard(
     { name: cardNameInput.value, link: cardLinkInput.value },
     handleImageClick,
-    cardLike,
+    likeCard,
     deleteCard
   );
   placesList.prepend(newCard);
