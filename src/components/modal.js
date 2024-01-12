@@ -15,4 +15,10 @@ function closeByEscape(evt) {
   }
 }
 
-export { openModal, closeModal };
+function closeByOverlay(evt) {
+  const openedPopup = document.querySelector(".popup_is-opened");
+  if (evt.target.matches(".popup_is-opened, .popup__close"))
+    closeModal(openedPopup);
+}
+
+export { openModal, closeModal, closeByOverlay };

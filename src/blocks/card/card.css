@@ -1,12 +1,14 @@
-@import url('./__description/card__description.css');
-@import url('./__image/card__image.css');
-@import url('./__like-button/card__like-button.css');
-@import url('./__like-button/_is-active/card__like-button_is-active.css');
-@import url('./__delete-button/card__delete-button.css');
-@import url('./__title/card__title.css');
+@import url("./__description/card__description.css");
+@import url("./__image/card__image.css");
+@import url("./__like-button/-container/card__like-button-container.css");
+@import url("./__like-button/card__like-button.css");
+@import url("./__like-counter/card__like-counter.css");
+@import url("./__like-button/_is-active/card__like-button_is-active.css");
+@import url("./__delete-button/card__delete-button.css");
+@import url("./__title/card__title.css");
 
 .card {
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;
