@@ -1,14 +1,14 @@
 import { likeCard, dislikeCard } from "./api";
 
 function createCard(cardData, profileId, onLike, onDelete, onOpenImage) {
-  const cardTemplate = document.querySelector("#card-template").content,
-    card = cardTemplate.querySelector(".card").cloneNode(true),
-    cardImage = card.querySelector(".card__image"),
-    cardTitle = card.querySelector(".card__title"),
-    cardLikeButton = card.querySelector(".card__like-button"),
-    cardLikeCounter = card.querySelector(".card__like-counter"),
-    isLiked = cardData.likes.some((likeItem) => likeItem._id === profileId),
-    deleteButton = card.querySelector(".card__delete-button");
+  const cardTemplate = document.querySelector("#card-template").content;
+  const card = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardImage = card.querySelector(".card__image");
+  const cardTitle = card.querySelector(".card__title");
+  const cardLikeButton = card.querySelector(".card__like-button");
+  const cardLikeCounter = card.querySelector(".card__like-counter");
+  const isLiked = cardData.likes.some((likeItem) => likeItem._id === profileId);
+  const deleteButton = card.querySelector(".card__delete-button");
 
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
@@ -28,15 +28,15 @@ function createCard(cardData, profileId, onLike, onDelete, onOpenImage) {
   return card;
 }
 
+// лайк карточки
 function changeLike(card, cardData) {
-  const cardLikeButton = card.querySelector(".card__like-button"),
-    cardLikeCounter = card.querySelector(".card__like-counter");
+  const cardLikeButton = card.querySelector(".card__like-button");
+  const cardLikeCounter = card.querySelector(".card__like-counter");
 
   if (cardLikeButton.classList.contains("card__like-button_is-active")) {
     dislikeCard(cardData._id)
       .then((data) => {
         cardLikeCounter.textContent = data.likes.length;
-
         cardLikeButton.classList.remove("card__like-button_is-active");
       })
       .catch((error) =>
@@ -46,7 +46,6 @@ function changeLike(card, cardData) {
     likeCard(cardData._id)
       .then((data) => {
         cardLikeCounter.textContent = data.likes.length;
-
         cardLikeButton.classList.add("card__like-button_is-active");
       })
       .catch((error) =>
@@ -55,6 +54,7 @@ function changeLike(card, cardData) {
   }
 }
 
+// удаление карточки
 function deleteMyCard(card) {
   card.remove();
 }
