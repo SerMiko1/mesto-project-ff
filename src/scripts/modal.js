@@ -15,10 +15,11 @@ function closeByEscape(evt) {
   }
 }
 
-function closeByOverlay(evt) {
-  const openedPopup = document.querySelector(".popup_is-opened");
-  if (evt.target.matches(".popup_is-opened, .popup__close"))
+function handlePopupClose(evt) {
+  if (evt.target.matches(".popup_is-opened, .popup__close")) {
+    const openedPopup = document.querySelector(".popup_is-opened");
     closeModal(openedPopup);
+  }
 }
 
-export { openModal, closeModal, closeByOverlay };
+export { openModal, closeModal, handlePopupClose };

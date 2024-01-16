@@ -8,18 +8,9 @@ import {
   deleteCard,
 } from "./scripts/api";
 import { createCard, changeLike, deleteMyCard } from "./scripts/cards";
-import { openModal, closeModal, closeByOverlay } from "./scripts/modal";
+import { openModal, closeModal, handlePopupClose } from "./scripts/modal";
 import { enableValidation, clearValidation } from "./scripts/validation";
-
-// конфиг валидаций
-const validationConfig = {
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-};
+import { validationConfig } from "./scripts/constants"; // произвел импорт с нового файла constanst.js
 
 let profileId = null;
 
@@ -87,23 +78,23 @@ function handleAvatarFormSubmit(evt) {
 
   updateAvatar(avatarLinkInput.value)
     .then((profileData) => {
-      profileAvatarEditButton.style.backgroundImage = `url(\\${profileData.avatar})`;
-
+      profileAvatarEditButton.style.backgroundImage = `url(${profileData.avatar})`;
       closeModal(popupAvatar);
     })
     .catch((error) =>
       console.error("Ошибка при получении данных пользователя:", error)
     )
-    .finally(() => (popupAvatarButton.textContent = originalButtonText));
-
-  clearValidation(avatarForm, validationConfig);
+    .finally(() => {
+      popupAvatarButton.textContent = originalButtonText;
+      avatarForm.reset(); // Очищаем форму
+    });
 }
 
 // редактирование имеени и занятия
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   const originalButtonText = popupEditProfileButton.textContent;
-  popupEditProfileButton.textContent = "Сохранение...";
+  popupEditProfileButton.textContent = "Сохранение..."; // я посмотрел ваши рекомендации на счет дублирования, занитересовало))) Попробую сделать так в следующем проекте!!!
 
   editProfileInfo(profileNameInput.value, profileAboutInput.value)
     .then((profileData) => {
@@ -115,8 +106,6 @@ function handleProfileFormSubmit(evt) {
       console.error("Ошибка получения данных пользователя:", error)
     )
     .finally(() => (popupEditProfileButton.textContent = originalButtonText));
-
-  clearValidation(profileForm, validationConfig);
 }
 
 // добавление картчоки на страницу
@@ -141,8 +130,6 @@ function handleNewCardFormSubmit(evt) {
     })
     .catch((error) => console.error("Ошибка при добавлении карточки:", error))
     .finally(() => (popupNewCardButton.textContent = originalButtonText));
-
-  clearValidation(cardForm, validationConfig);
 }
 
 // удаление личной карточки
@@ -166,14 +153,12 @@ function onOpenImage(cardData) {
 
 // данные попапов
 function openEditAvatarPopup() {
-  avatarLinkInput.value = profileAvatarEditButton.style.backgroundImage.replace(
-    /url\(["']?(.*?)["']?\)/,
-    "$1"
-  );
+  avatarLinkInput.value = ""; // Оставляем инпут пустым
   openModal(popupAvatar);
 }
 
 function openEditProfilePopup() {
+  clearValidation(profileForm, validationConfig); // Очищаем возможные ошибки
   profileNameInput.value = profileTitle.textContent;
   profileAboutInput.value = profileDescription.textContent;
   openModal(popupEditProfile);
@@ -186,10 +171,9 @@ profileEditButton.addEventListener("click", () => openEditProfilePopup());
 profileAddButton.addEventListener("click", () => openModal(popupNewCard));
 avatarForm.addEventListener("submit", handleAvatarFormSubmit);
 cardForm.addEventListener("submit", handleNewCardFormSubmit);
-popups.forEach((popup) => popup.addEventListener("mousedown", closeByOverlay));
+popups.forEach((popup) =>
+  popup.addEventListener("mousedown", handlePopupClose)
+);
 
 // валидации форм
 enableValidation(validationConfig);
-clearValidation(avatarForm, validationConfig);
-clearValidation(profileForm, validationConfig);
-clearValidation(cardForm, validationConfig);

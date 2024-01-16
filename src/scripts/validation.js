@@ -40,6 +40,8 @@ function setEventListeners(form, validationConfig) {
   const submitButton = form.querySelector(
     validationConfig.submitButtonSelector
   );
+  // внес правку!
+  toggleButtonState(form.checkValidity(), submitButton, validationConfig);
 
   form.addEventListener("input", (evt) => {
     const input = evt.target;
