@@ -80,13 +80,13 @@ function handleAvatarFormSubmit(evt) {
     .then((profileData) => {
       profileAvatarEditButton.style.backgroundImage = `url(${profileData.avatar})`;
       closeModal(popupAvatar);
+      avatarForm.reset();
     })
     .catch((error) =>
       console.error("Ошибка при получении данных пользователя:", error)
     )
     .finally(() => {
       popupAvatarButton.textContent = originalButtonText;
-      avatarForm.reset(); // Очищаем форму
     });
 }
 
@@ -153,7 +153,6 @@ function onOpenImage(cardData) {
 
 // данные попапов
 function openEditAvatarPopup() {
-  avatarLinkInput.value = ""; // Оставляем инпут пустым
   openModal(popupAvatar);
 }
 
