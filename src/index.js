@@ -79,8 +79,9 @@ function handleAvatarFormSubmit(evt) {
   updateAvatar(avatarLinkInput.value)
     .then((profileData) => {
       profileAvatarEditButton.style.backgroundImage = `url(${profileData.avatar})`;
+      avatarForm.reset(); 
       closeModal(popupAvatar);
-      avatarForm.reset();
+      
     })
     .catch((error) =>
       console.error("Ошибка при получении данных пользователя:", error)
@@ -165,8 +166,8 @@ function openEditProfilePopup() {
 
 // обработчик форм и попапов
 profileForm.addEventListener("submit", handleProfileFormSubmit);
-profileAvatarEditButton.addEventListener("click", () => openEditAvatarPopup());
-profileEditButton.addEventListener("click", () => openEditProfilePopup());
+profileAvatarEditButton.addEventListener("click", openEditAvatarPopup);
+profileEditButton.addEventListener("click", openEditProfilePopup);
 profileAddButton.addEventListener("click", () => openModal(popupNewCard));
 avatarForm.addEventListener("submit", handleAvatarFormSubmit);
 cardForm.addEventListener("submit", handleNewCardFormSubmit);
